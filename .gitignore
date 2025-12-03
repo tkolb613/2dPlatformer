@@ -34,3 +34,7 @@ aa/
 
 # JetBrains
 .idea/
+
+Packages/com.merry-yellow.code-assist/
+
+Library/PackageCache/
