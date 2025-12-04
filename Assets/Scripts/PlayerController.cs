@@ -5,7 +5,7 @@ public class PlayerController : MonoBehaviour
     //Animator 
 
     private Animator animator;
-
+    public int coins;
 
     //
     public float moveSpeed = 4f;

@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 1211838308006694209}
   - component: {fileID: 2166516657872798258}
   - component: {fileID: 7653500055817957570}
+  - component: {fileID: -5339005160901729366}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -218,3 +219,17 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   extraJumpsValue: 1
+--- !u!114 &-5339005160901729366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7367150149271864914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da2a93de5ad47ce4b95eec01de5f2b4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  health: 100
+  damageAmount: 25
