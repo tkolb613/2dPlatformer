@@ -14,26 +14,34 @@ public class PlayerHealth : MonoBehaviour
     // Reference to the Player's SpriteRenderer (used for flashing red)
     private SpriteRenderer spriteRenderer;
 
+    private AudioSource audioSource;
+    public AudioClip hurtClip;
+
     private void Start()
     {
         // Get the SpriteRenderer component attached to the Player
         spriteRenderer = GetComponent<SpriteRenderer>();
         UpdateHealthBar();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Method to reduce health when damage is taken
     public void TakeDamage()
-    {
-        health -= damageAmount; // subtract damage amount
-        UpdateHealthBar();
-        StartCoroutine(BlinkRed()); // briefly flash red
+    {             
+            playSFX(hurtClip);
+            health -= damageAmount; // subtract damage amount
+            UpdateHealthBar();
+            StartCoroutine(BlinkRed()); // briefly flash red
 
-        // If health reaches zero or below, call Die()
-        if (health <= 0)
-        {
-            Die();
-        }
+            // If health reaches zero or below, call Die()
+            if (health <= 0)
+            {
+                Die();
+            }
     }
+
+
+
     private void UpdateHealthBar()
     {
         if (healthImage != null)
@@ -53,5 +61,11 @@ public class PlayerHealth : MonoBehaviour
     private void Die()
     {
         SceneManager.LoadScene("MainScene");
+    }
+
+    private void playSFX(AudioClip audioClip)
+    {
+        audioSource.clip = audioClip;
+        audioSource.Play();
     }
 }

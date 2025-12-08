@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 
     private Animator animator;
     public int coins;
+    private AudioSource audioSource;
 
     //
     public float moveSpeed = 4f;
@@ -13,6 +14,8 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheck;
     public float groundCheckRadius = 0.4f;
     public LayerMask groundLayer;
+
+    public AudioClip jumpClip;
 
     private Rigidbody2D rb;
     private bool isGrounded;
@@ -26,6 +29,8 @@ public class PlayerController : MonoBehaviour
         //
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
+
     }
 
     void Update()
@@ -51,15 +56,26 @@ public class PlayerController : MonoBehaviour
             if (isGrounded)
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+                playSFX(jumpClip);
             }
             else if (extraJumps > 0)
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+                playSFX(jumpClip);
                 extraJumps--;
             }
         }
         SetAnimation(moveInput);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "BouncePad")
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce * 2);
+        }
+    }
+
     private void SetAnimation(float moveInput)
     {
         if (isGrounded)
@@ -84,5 +100,15 @@ public class PlayerController : MonoBehaviour
                 animator.Play("Player_Fall");
             }
         }
+    }
+    private void Die()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+    }
+
+    public void playSFX(AudioClip audioClip)
+    {
+        audioSource.clip = audioClip;
+        audioSource.Play();
     }
 }
