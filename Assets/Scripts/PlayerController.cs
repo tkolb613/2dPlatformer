@@ -66,6 +66,12 @@ public class PlayerController : MonoBehaviour
             }
         }
         SetAnimation(moveInput);
+
+
+        if (transform.position.y < -9)
+        {
+            Die();
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -110,5 +116,14 @@ public class PlayerController : MonoBehaviour
     {
         audioSource.clip = audioClip;
         audioSource.Play();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Strawberry")
+        {
+            extraJumps = 3;
+            Destroy(collision.gameObject);
+        }
     }
 }
